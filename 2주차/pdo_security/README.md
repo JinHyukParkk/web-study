@@ -45,17 +45,17 @@ $mysqli->query("SELECT * FROM users WHERE username='{$username}' AND password='{
 
 아래와 같은 query는 placeholder 없기에 SQL 인젝션의 위험이 있습니다.
 ```
-$st = $pdo->("INSERT INTO table (col1, col2, col3) values ($val1, $val2, $val3)");
+$st = $pdo->query("INSERT INTO table (col1, col2, col3) values ($val1, $val2, $val3)");
 ```
 
 그래서 이를 방지하기 위해
 ```
 case.1)
-$st = $pdo->('INSERT INTO table (col1, col2, col3) values (?, ?, ?)');
+$st = $pdo->prepare('INSERT INTO table (col1, col2, col3) values (?, ?, ?)');
 $st->execute(['val1', 'val2', 'val2']);
   
 case.2)
-$st = $pdo->("INSERT INTO table (col1, col2, col3) value (:col1, :col2, :col3)");
+$st = $pdo->prepare("INSERT INTO table (col1, col2, col3) value (:col1, :col2, :col3)");
 $st->execute([':col1'=>'val1', ':col2'=>'val2', ':col3'=>'val3']);
 ```
 위 처럼 이름이 없는 ?의 placeholder를 주거나 :col1 이라는 이름을 주어 execute 할 때 파라미터 값을 넘겨 줍니다.
