@@ -1,5 +1,4 @@
 # 1.  PDO 객체와 SQL 인젝션
-=============
 
 ## 1.1. PDO 객체란 
 PHP에서 사용되는 데이터베이스 extension(oci, mysql, postgresql, mssql 등)간의 일관성이 심각하게  결여된 상태에서 php database extension 관리 담당자 들이 모여 lightweight API 제공합니다. 기존 사용하던 여러 RDMBS 라이브러리들이 공통적으로 제공하는 기능을 통합하였고, 이러한 개념을 PHP DATA Objects(PDO)라 칭합니다.
