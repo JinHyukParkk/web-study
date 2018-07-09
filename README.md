@@ -1,5 +1,5 @@
-# phpSecurity-study
-php 보안 스터디
+# php 보안 스터디
+=============
 
 ## 1주차 
  - [PHP 특징](https://github.com/JinHyukParkk/phpSecurity-study/tree/master/1%EC%A3%BC%EC%B0%A8/php%ED%8A%B9%EC%A7%95)
