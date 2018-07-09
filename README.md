@@ -2,7 +2,7 @@
 
 ## 1주차 
 1. [PHP 특징](https://github.com/JinHyukParkk/phpSecurity-study/tree/master/1%EC%A3%BC%EC%B0%A8/php%ED%8A%B9%EC%A7%95)
-2. [PHP 원칙]()
+2. [PHP 원칙](https://github.com/JinHyukParkk/phpSecurity-study/tree/master/1%EC%A3%BC%EC%B0%A8/php%EC%9B%90%EC%B9%99)
 
 ## 2주차
 1. [PDO 객체와 SQL 인젝션](https://github.com/JinHyukParkk/phpSecurity-study/tree/master/2%EC%A3%BC%EC%B0%A8/pdo_security)
