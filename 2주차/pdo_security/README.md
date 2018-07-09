@@ -1,7 +1,7 @@
-# 2.  PDO 객체와 SQL 인젝션
+# 1.  PDO 객체와 SQL 인젝션
 =============
 
-## 2.1. PDO 객체란 
+## 1.1. PDO 객체란 
 PHP에서 사용되는 데이터베이스 extension(oci, mysql, postgresql, mssql 등)간의 일관성이 심각하게  결여된 상태에서 php database extension 관리 담당자 들이 모여 lightweight API 제공합니다. 기존 사용하던 여러 RDMBS 라이브러리들이 공통적으로 제공하는 기능을 통합하였고, 이러한 개념을 PHP DATA Objects(PDO)라 칭합니다.
 ```
 # 기본 사용법
@@ -26,7 +26,7 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 ```
 설정에 따라 Error와 Warning상태를 출력 할 수 있습니다. 
 
-## 2.2. SQL 인젝션이란?
+## 1.2. SQL 인젝션이란?
 사전적인 의미로 응용 프로그램 보안 상의 허점을 의도적으로 이용해, 악의적인 SQL문을 실행되게 함으로써 데이터베이스를 비정상적으로 조작하는 코드 인젝션 공격 방법입니다.
 예를 들어 아이디와 비밀번호를 확인하고 일치하면 로그인을 하는 PHP 프로그램이 있다고 가정할 때 
 ```
@@ -41,7 +41,7 @@ $mysqli->query("SELECT * FROM users WHERE username='{$username}' AND password='{
  ```
 
 
-## 2.3. PDO로 SQL 인젝션 방지.
+## 1.3. PDO로 SQL 인젝션 방지.
 보통 password 값을 md5로 암호화 하여 저장하거나 이스케이프 필터링-mysql_real_escape_string(), addSlashes() 를 사용하여 방지하지만 PDO 객체에서도 prepare와 placeholder를 사용하여 SQL 인젝션 방지가 가능합니다.
 
 아래와 같은 query는 placeholder 없기에 SQL 인젝션의 위험이 있습니다.
