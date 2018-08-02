@@ -1,58 +1,54 @@
 # 1.SESSION
 세션(session)은 컴퓨터 과학에서, 특히 네트워크 분야에서 반영구적이고 상호작용적인 정보 교환이며 둘 이상의 통신 장치나 컴퓨터와 사용자 간의 대화나 만남을 의미하는 다이얼로그(dialogue)이다.
 # 2. SESSION FIXATION
-이것은 공격자가 명시 적으로 사용자 세션의 세션 식별자를 설정하는 곳입니다. 일반적으로 PHP에서는 URL을 제공함으로써 완료됩니다 http://www.example.com/index...?session_name=sessionid. 공격자가 클라이언트에게 URL을 제공하면 공격은 세션 하이재킹 공격과 같습니다.
+이것은 공격자가 명시 적으로 사용자 세션의 세션 식별자를 설정하는 곳입니다. 일반적으로 PHP에서는 URL을 제공함으로써 완료됩니다 http://www.example.com/index...?session_name=sessionid. 공격자가 클라이언트에게 URL을 제공하면 공격은 세션 하이재킹 공격과 같다.
 
-세션 고정을 방지하는 몇 가지 방법이 있습니다 (모두 수행).
+php.ini파일 설정
 
-설정 session.use_trans_sid = 0당신의 php.iDDDDDDDDDDDDDDDDDDDDDDD 이렇게하면 PHP가 URL에 식별자를 포함하지 않고 식별자의 URL을 읽지 않게됩니다.
+session.use_trans_sid = 0 => PHP가 URL에 식별자를 포함하지 않고 식별자의 URL을 읽지 않게됩니다.
 
-설정 session.use_only_cookies = 1당신의 php.ini파일. 이렇게하면 PHP가 세션 식별자가있는 URL을 절대로 사용하지 않게됩니다.
+session.use_only_cookies = 1 => PHP가 세션 식별자가있는 URL을 절대로 사용하지 않게됩니다.
 
-세션의 상태가 변경 될 때마다 세션 ID를 다시 생성하십시오. 즉, 다음 중 하나를 의미합니다.
+세션의 상태가 변경 될 때마다 세션 ID를 다시 생성. 
 
-사용자 인증
-세션에 중요한 정보 저장
-세션에 대해 아무 것도 변경하기
-기타...
 # 3. SESSION Hijacking
 세션 하이재킹은 시스템에 접근할 적법한 사용자 아이디와 패스워드를 모를 경우 공격 대상이 이미 시스템에 접속되어 세션이 연결되어 있는 상태를 가로채기 하는 공격으로 아이디와 패스워드를 몰라도 시스템에 접근하여 자원이나 데이터를 사용할 수 있는 공격이다.
 
 
-
 # 3 방어방법
-기본적으로 php에서는 htmlspecialchars가 있다.
-```
-<div><?php echo htmlspecialchars($name); ?>님의 말: </div>
-```
-htmlspecialchars는 특수문자를 html 앤터티로 변환하여 스크립트 등을 html 앤터티로 변환 시켜 일반 text로 출력하게 한다.
+보안 소켓 계층 사용
+세션 남용을 방지하기위한 기본 권장 사항은 다음과 같습니다. 연결로 암호로 보호 할 가치가 있다면 SSL 또는 TLS로 보호 할 가치가 있습니다.
 
-이렇게 할 경우에는 기본적인 문법을 지킨 스크립트 공격은 대부분 막게 된다.
+SSL은 세션 쿠키의 값을 클라이언트에서 서버로주고받을 때 암호화합니다. SSL은 세션 ID를 클라이언트와 서버 사이의 모든 네트워크 홉에서 수신 대기 한 사람의 손에서 뺐습니다. 신뢰할 수있는 서명으로 서버를 적극적으로 인증함으로써 SSL은 악의적 인 프록시가 신원 사기에서 벗어나는 것을 방지 할 수 있습니다. 프록시가 자체 서명 및 사기 인증서를 제출하더라도 사용자의 브라우저 신뢰 메커니즘은 해당 인증서가 인식되지 않았 음을 알리고 사용자에게 트랜잭션 중단을 경고합니다.
 
-하지만 이렇게 될 경우 특정 html 태그를 사용하지 못해, ui부분을 꾸밀 수 없기 때문에 몇몇 태그는 허용해주는 방법이 있다.
+SSL은 소규모 웹 사이트, 특히 매우 가치있는 데이터를 다루지 않는 웹 사이트의 경우 과도하게 사용됩니다.
 
-```
-function html_filter($content)
-{
- // Strip bad elements.
- $content = preg_replace('/(<)(|\/)(\!|\?|html|head|title|meta|body|style|link|base|script'.
- '|frameset|frame|noframes|iframe|applet|embed|object|param|noscript|noembed|map|area|basefont|xmp|plaintext|comment)/i',
- '&lt;$2$3', $content);
 
- // Strip script handlers.
- $content = preg_replace_callback("/([^a-z])(o)(n)/i",
- create_function('$matches', 'if($matches[2]=="o") $matches[2] = "&#111;";
- else $matches[2] = "&#79;"; return $matches[1].$matches[2].$matches[3];'), $content);
+세션 시간 초과 사용
+세션 쿠키의 수명은 기본적으로 0, 즉 브라우저가 열려있는 기간까지입니다. 스크립트에서 ini_set ( 'session.cookie_lifetime', 1200)과 같은 명령어를 포함하여 this.by와 같이 작은 세션 시간을 세션 수명으로 설정하는 것이 좋습니다. 이것은 세션 쿠키의 수명을 1,200 초 또는 20 분으로 설정합니다 (php.ini에서 전역으로 설정할 수도 있습니다). 이 설정을 사용하면 세션 쿠키가 20 분 후에 만료되고 세션 ID가 유효하지 않게됩니다. 20 분 정도의 비교적 짧은 시간에 세션이 시간 초과되면 사람이 서버 또는 프록시 로그를 처리 할 수있는 경우 모든 사람이 세션을 가로채는 데 어려움을 겪을 수 있습니다.
 
- return $content;
-}
-```
-출저 wiki피디아(https://ko.wikipedia.org/wiki/%EC%82%AC%EC%9D%B4%ED%8A%B8_%EA%B0%84_%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8C%85)
+보수적으로 세션 수명을 제어하면 수명이 거의 지나치지 않는 공격 (예 : 사람의 공격자가 네트워크 로그를 읽는 등의 공격)으로부터 세션을 보호합니다. 그러나 사용자가 양식을 완성하는 데 오랜 시간이 걸리면 세션 (및 이미 입력 된 양식 데이터)이 손실 될 수 있습니다. 따라서 사용자에게 잠재적으로 불편을 끼칠만한 가치가 있는지 여부를 결정해야합니다.
 
-해당 코드는 php로 구현한 간단한 html 필터 코드이다.
+세션 재생성 ID 사용
+사용자가 로그 아웃하거나 보안 영역에서 안전하지 않은 영역으로 이동하여 상태를 변경할 때마다 새 세션 ID를 다시 생성하여 이전 세션을 무효화해야합니다. 요점은 기존의 데이터를 파괴하는 것이 아니라 오히려 새로운 세션 ID를 생성한다는 목표로 보안 수준이 낮은 세션에 대한 지식을 가진 공격자가 보안 수준이 높은 세션을 수행 할 수 있는 가능성을 제거하는 것입니다. 보안 작업. HTTPS로그인 스크립트의 예제는 세션 ID를 재생성하는 방법을 보여줍니다.
 
-위 strip bad elements에 해당하는 코드는 해당 태그들을 삽입 못하도록 막은 것이다. 정규식을 이용해 태그 필터링을 해서 
-다른 태그들은 사용할 수 있게끔 하였다.
 
-# 4. 마치며
-사실 xss를 막더라도 해커는 기여코 xss방법으로 우회하여 웹사이트 취약점을 발견해낸다. 하지만 이러한 기본적인 부분도 방어하지 않는다면, 더 많은 공격시도가 발생할 수 있기 때문에 최소한 안전장치를 다는 것이 좋다고 생각한다.
+<?php
+    if ( !empty( $_POST['password'] ) && $_POST['password'] === $password ) 		
+    {		
+     // 인증 되면 
+      session_regenerate_id();
+
+     // 세션에도 추가
+      $_SESSION['auth'] = TRUE;
+
+     // 새로운 새션 ID추가
+
+     header( 'Location: ' . $_SERVER['SCRIPT_NAME'] );
+    }					
+    // take some action
+?>
+
+
+
+
