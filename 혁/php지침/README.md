@@ -65,4 +65,27 @@ if (ctype_alnum($_POST['username'])) {
   - 이스케이프된 데이터와 그렇지 않은 데이터를 구분하는 단계
 *필터링 후 이스케이프 처리
 
-데이터가 주로 전달되는 곳은 클라이언
+데이터가 주로 전달되는 곳은 클라이언트 즉, 웹브라우저입니다. 따라서, 클라이언트에 보낼 데이터를 이스케이프 함수로 htmlentities() 를 사용합니다. htmlentities() 첫번째 인자에는 html 코드를 넣고, 두번째 인자에 인용부호 형식, 세번째 인자에 문자셋을 지정합니다. 인용부호 형식은 작은 따옴표와 큰 따옴표를 모두 변환하는 ENT_QUOTES를 사용하고, 문자셋은 응용프로그램이 각 응답에 사용하는 Content-Type 헤더에 있는 문자셋과 같은 것을 사용하면 됩니다.
+```
+<?php
+    $html = array();
+
+    $html['username'] = htmlentities($clean['username'], ENT_QUOTES, 'UTF-8');
+
+    echo "<p>Welcome back, {$html['username']} . </p>";
+?>
+```
+*htmlspecialchars() 함수는 htmlentities()와 거의 동일하지만 덜 공격적으로 이스케이프를 수행합니다.
+
+위의 방어 말고도 SQL 쿼리를 이스케이프하는 데이터베이스에서 제공하는 함수 또한 있습니다. mysql_real_escape_string() 입니다. 하지만 해당 버전에서 mysql_real_escape_string() 이스케이프 함수를 제공하지 않는다면 최후의 수단으로 addslashes()를 사용할 수 있습니다.
+```
+<?php
+$mysql = array();
+
+$mysql['username'] = mysql_real_escape_string($clean['username');
+
+$sql = "SELECT * FROM profile WHERE username = '{$mysql]['username']} '";
+
+$result = mysql_query['username'];
+?>
+```
