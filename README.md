@@ -10,3 +10,6 @@
 
 ## - 3주차_닥제
 1. [XSS 인젝션](https://github.com/JinHyukParkk/phpSecurity-study/tree/master/3%EC%A3%BC%EC%B0%A8%20-%20%EB%8B%A5%EC%A0%9C/XSS)
+
+## - 4주차_브래드
+1. [세션 하이제킹](https://github.com/JinHyukParkk/phpSecurity-study/tree/master/4%EC%A3%BC%EC%B0%A8%20-%20%EB%B8%8C%EB%9E%98%EB%93%9C/session_hyjecking)
