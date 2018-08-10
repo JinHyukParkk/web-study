@@ -13,3 +13,6 @@
 
 ## - 4주차_브래드
 1. [세션 하이제킹](https://github.com/JinHyukParkk/phpSecurity-study/tree/master/%EB%B8%8C%EB%9E%98%EB%93%9C/session_hyjecking)
+
+
+참고문헌 : PHP 보안
