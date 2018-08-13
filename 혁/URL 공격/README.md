@@ -1,4 +1,4 @@
-#5. URL 공격
+# 5. URL 공격
 
 ## 5.1. URL 변경
  http://example.org/private.php?user=chris의 링크를 클릭해서 user에 해당하는 값을 변경했을 때 공격자들은 chris 대신 다른 user를 넣어 접근할 수 있는지 알아볼 것입니다. POST 데이터와 GET 데이터를 처리하는 데에 큰 차이는 없지만 GET 전송방식이 보다 많은 데이터를 노출하기 때문에 공격 대상이 자주 됩니다.
