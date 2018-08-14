@@ -57,9 +57,9 @@ Content-Disposition: form-data; name="MAX_FILE_SIZE"
 ----------12345--
 ```
 
-위를 보면 데이터별로 boundary로 나뉘어서 전달되고, 메타 데이터를 식별해낼 수 있습니다. 슈퍼전역 변수 $_FILE만으로도 PHP 상에서 tmp_name, error, size를 알 수 있습니다.
+위의 HTTP Request 내용을 보면 데이터별로 boundary로 나뉘어서 전달되고, 메타 데이터를 식별해낼 수 있습니다. 또한 슈퍼전역 변수 $_FILE만으로도 PHP 상에서 tmp_name, error, size를 알 수 있습니다.
 
-하지만 업로드된 파일을 검증하지 않고 tmp_name을 사용한다면 이론상 위험이 존재합니다. 그래서 PHP에서는 이러한 위험을 덜어주기 위해 is_upload_file()과 move_uploaded_file()을 제공합니다. tmp_name이 참조하는 파일이 업로드된 파일인지 검사하고 싶다면 is_uploaded_file() 함수를 사용할 수 있습니다.
+하지만 업로드된 파일을 검증하지 않고 tmp_name을 사용한다면 이론상 위험이 존재합니다. 그래서 PHP에서는 이러한 위험을 덜어주기 위해 is_uploaded_file()과 move_uploaded_file()을 제공합니다. tmp_name이 참조하는 파일이 업로드된 파일인지 검사하고 싶다면 is_uploaded_file() 함수를 사용할 수 있습니다.
 ```
 <?php
     $filename = $_FILES['attachment']['tmp_name'];
