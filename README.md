@@ -11,6 +11,6 @@
 9. [PDO 객체와 SQL 인젝션](./phpSecurity/PDO_SQL인젝션.md)
 10. [XSS 인젝션](./phpSecurity/XSS유형및방어.md)
 11. [세션 하이제킹](./phpSecurity/세션하이재킹.md)
-
+12. [폼 스푸핑](./phpSecurity/폼_제출_스푸핑.md)
 -------------
 #### 참고문헌 : PHP 보안
