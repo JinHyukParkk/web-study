@@ -16,6 +16,7 @@
 ### 2.10. [HTTP 요청 스푸핑](./phpSecurity/HTTP_요청_스푸핑.md)
 ## 3. 데이터베이스와 SQL
 ### 3.1 [엑세스 인증 정보 유출](./phpSecurity/엑세스_인증_정보_유출.md)
+### 3.2 [SQL 삽입 공격](./phpSecurity/SQL_삽입_공격.md)
 ## 4. PHP 성능
 ### 4.1. [PHP 속도 개선 코딩](./phpPerformance/속도_개선_코딩.md)
 -------------
