@@ -20,7 +20,7 @@
 ## 4. 세션과 쿠키
 ### 4.1. [쿠키 훔치기](./phpSecurity/쿠키_훔치기.md)
 ### 4.2. [세션 데이터 노출](./phpSecurity/세션_데이터_노출.md)
-### 4.3. [세샨 고정](./phpSecurity/세션_고정.md)
+### 4.3. [세션 고정](./phpSecurity/세션_고정.md)
 # PHP 성능
 ## 1. 속도
 ### 1.1. [PHP 속도 개선 코딩](./phpPerformance/속도_개선_코딩.md)
