@@ -23,9 +23,10 @@
 ### 4.3. [세션 고정](./phpSecurity/세션_고정.md)
 ### 4.3. [세션 하이재킹2](./phpSecurity/세션_하이재킹.md)
 ## 5. 인클루드
-### 5.1 [소스 코드 유츌](./phpSecurity/소스_코드_유출.md)
-### 5.2 [백도어 URL](./phpSecurity/백도어_URL.md)
-### 5.3 [파일 이름 조작](./phpSecurity/파일_이름_조작.md)
+### 5.1. [소스 코드 유츌](./phpSecurity/소스_코드_유출.md)
+### 5.2. [백도어 URL](./phpSecurity/백도어_URL.md)
+### 5.3. [파일 이름 조작](./phpSecurity/파일_이름_조작.md)
+## 6. 파일과 명령
 # PHP 성능
 ## 1. 속도
 ### 1.1. [PHP 속도 개선 코딩](./phpPerformance/속도_개선_코딩.md)
