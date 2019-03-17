@@ -1,3 +1,3 @@
 # javascript 
  - [Functional programming](./functionalProgramming)
- - [Grammer](./grammer)
+ - [Grammar](./grammar)
