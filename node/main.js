@@ -2,35 +2,7 @@ var http = require('http');
 var fs = require('fs');
 var url = require('url');
 var qs = require('querystring');
-
-function templateHtml(title, szList, body, szControl) {
-    return `<!doctype html>
-    <html>
-    <head>
-    <title>WEB1 - ${title}</title>
-    <meta charset="utf-8">
-    </head>  
-    <body>
-    <h1><a href="/">WEB</a></h1>
-    ${szList}
-    ${szControl}
-    ${body}
-    </p>
-    </body>
-    </html>
-    `;
-}
-
-function templateFileList(aFlieList) {
-    var szList = '<ul>';
-    aFlieList.forEach(element => {
-        if(element != 'Welcome'){
-            szList += `<li><a href="./?id=${element}">${element}</a></li>`
-        }
-    });
-    szList += '</ul>';
-    return szList;
-}
+var oTemplate = require('./lib/template.js')
 
 var app = http.createServer(function(request,response){
     var _url = request.url;
@@ -45,26 +17,31 @@ var app = http.createServer(function(request,response){
 
         var szList = '';
         fs.readdir('data', function(err, aFlieList){
-            szList += templateFileList(aFlieList);
+            szList += oTemplate.fileList(aFlieList);
         });
         
         fs.readFile(`data/${title}`, 'utf-8', function(err, description){
-            var template = templateHtml(title, szList, `<h2>${title}</h2>${description}`,
-            `<a href="/create">create</a> <a href="/update?id=${title}">update</a>`);
+            var template = oTemplate.HTML(title, szList, `<h2>${title}</h2>${description}`,
+            `<a href="/create">create</a>
+             <a href="/update?id=${title}">update</a>
+             <form action="/delete_process" method="post">
+                <input type="hidden" name="id" value=${title}/>
+                <input type="submit" value="delete"/>
+             </form>`);
             response.writeHead(200);
             response.end(template);
         });
     } else if (pathName == '/create'){
         var szList = '';
         fs.readdir('data', function(err, aFlieList){
-            szList += templateFileList(aFlieList);
+            szList += oTemplate.fileList(aFlieList);
         });
         
         fs.readFile('form/form.html', 'utf-8', function (error, data) {
             response.writeHead(200, {
                 'Content-Type': 'text/html'
             });
-            var template = templateHtml(title, szList, data,
+            var template = oTemplate.HTML(title, szList, data,
            '');
             if (error) {
                 response.writeHead(404);
@@ -89,18 +66,17 @@ var app = http.createServer(function(request,response){
                 response.end();
             });
         });
-        
     } else if (pathName == '/update') {
         var szList = '';
         fs.readdir('data', function(err, aFlieList){
-            szList += templateFileList(aFlieList);
+            szList += oTemplate.fileList(aFlieList);
         });
         fs.readFile(`data/${title}`, 'utf-8', function(err, description){
             response.writeHead(200, {
                 'Content-Type': 'text/html'
             });
-            var template = templateHtml(title, szList, 
-                `<form action="http://localhost:3000/create_process" method="POST">
+            var template = oTemplate.HTML(title, szList, 
+                `<form action="http://localhost:3000/update_process" method="POST">
                 <input type="hidden" name="id" value="${title}"/>
                 <p>
                     <input type="text" name="title" value="${title}">
@@ -113,12 +89,33 @@ var app = http.createServer(function(request,response){
                 </p>
             </form>`,
            '');
-           console.log(template);
            response.write(template);
            response.end();
         });
     } else if(pathName == '/update_process') {
-        
+        var body = '';
+        request.on('data', function(data){
+            body += data;
+        });
+        request.on('end', function(){
+            var post = qs.parse(body);
+            var id = post.id;
+            var title = post.title;
+            var description = post.description;
+            fs.rename(`data/${id}`, `data/${title}`, function(err){
+                fs.writeFile(`data/${title}`, description, 'utf-8', function(err){
+                    response.writeHead(302, {Location: `/?id=${title}`});
+                    response.end();
+                });
+            });
+        });
+    } else if (pathName == '/delete_process') {
+        var post = qs.parse(body);
+        var id = post.id;
+        fs.unlink(`data/${id}`, function(err){
+            response.writeHead(302, {Location: `/`});
+            response.end();
+        });
     } else {
         response.writeHead(404);
         response.end('Not Found ');
