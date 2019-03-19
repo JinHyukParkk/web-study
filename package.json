@@ -1,0 +1,19 @@
+{
+  "name": "php-study",
+  "version": "1.0.0",
+  "description": "- [php](./php)  - [javascript](./javascript)  - [node.js](./node)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JinHyukParkk/php-study.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JinHyukParkk/php-study/issues"
+  },
+  "homepage": "https://github.com/JinHyukParkk/php-study#readme"
+}
