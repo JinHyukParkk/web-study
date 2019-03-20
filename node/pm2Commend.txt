@@ -1,0 +1,11 @@
+## watch 기능으로 파일 변경 계속적으로 적용
+pm2 start main.js --watch
+
+##
+pm2 start main.js --watch --no-demon
+
+##
+pm2 kill
+
+## 
+pm2 log
